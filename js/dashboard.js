@@ -2,8 +2,6 @@ const SUPABASE_URL = 'https://payyhgojskahdgwnzdnh.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBheXloZ29qc2thaGRnd256ZG5oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMjc1MDMsImV4cCI6MjEwODcwMzUwM30.Dd4v4_aCFKOZaRTDxpWY1Le-tIINGbk_5ZnqmwyXeX8';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let pedidoAtual = null;
-
 document.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   
@@ -15,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const userEmail = session.user.email;
   document.getElementById('userEmail').textContent = userEmail;
 
-  // VERIFICA SE O CARGO É FUNCIONÁRIO OU ADMIN
+  // Verifica permissão (admin ou funcionário)
   const { data: perfil, error } = await supabaseClient
     .from('perfis')
     .select('role')
@@ -47,7 +45,7 @@ async function carregarPedidos() {
   }
 
   if (data.length === 0) {
-    container.innerHTML = '<p>Nenhum pedido pendente no momento.</p>';
+    container.innerHTML = '<p>Nenhum pedido pendente.</p>';
     return;
   }
 
@@ -56,60 +54,67 @@ async function carregarPedidos() {
     const card = document.createElement('div');
     card.className = 'card card--problem fade-in visible';
     
-    // Se já foi respondido, mostra a resposta
-    const statusBadge = pedido.status === 'respondido' 
-      ? `<span style="background: #25D366; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">Respondido</span>` 
-      : `<span style="background: #f5b041; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">Pendente</span>`;
+    // Define a cor do status
+    const isRespondido = pedido.status === 'respondido';
+    const bgColor = isRespondido ? '#25D366' : '#f5b041';
+    const statusTexto = isRespondido ? 'Respondido' : 'Pendente';
+
+    // Monta a mensagem do Gmail (Assunto + Corpo)
+    const assunto = encodeURIComponent(`Re: Contato Ambar Web - ${pedido.negocio}`);
+    const corpo = encodeURIComponent(`Olá, ${pedido.nome}!\n\nRecebemos sua mensagem sobre ${pedido.negocio}.\n\n[Escreva sua resposta aqui]\n\nAtenciosamente,\nEquipe Ambar Web`);
+    
+    // Link mailto para abrir o Gmail
+    const gmailLink = `mailto:${pedido.email}?subject=${assunto}&body=${corpo}`;
 
     card.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: start;">
         <h3>${pedido.nome}</h3>
-        ${statusBadge}
+        <span style="background: ${bgColor}; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">${statusTexto}</span>
       </div>
       <p style="font-size: 0.8rem; margin-bottom: 10px;"><strong>E-mail:</strong> ${pedido.email}</p>
       <p style="font-size: 0.8rem; margin-bottom: 10px;"><strong>Negócio:</strong> ${pedido.negocio}</p>
       <p style="margin: 10px 0; font-style: italic; font-size: 0.9rem;">"${pedido.mensagem}"</p>
-      ${pedido.resposta ? `<div style="background: #f5f0e8; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.85rem;"><strong>Sua resposta:</strong> ${pedido.resposta}</div>` : ''}
-      <button onclick="abrirModal(${pedido.id}, '${pedido.nome}')" class="btn btn--primary btn--sm" style="margin-top: 10px; width: 100%;">
-        ${pedido.resposta ? 'Editar Resposta' : 'Responder'}
-      </button>
+      
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <!-- Botão que abre o Gmail com tudo preenchido -->
+        <a href="${gmailLink}" target="_blank" class="btn btn--primary btn--sm" style="flex: 1; text-align: center;">
+          Abrir no Gmail
+        </a>
+        
+        <!-- Botão para marcar como respondido -->
+        <button 
+          onclick="marcarComoRespondido(${pedido.id})" 
+          class="btn ${isRespondido ? 'btn--ghost' : 'btn--primary'} btn--sm" 
+          style="flex: 1;"
+          ${isRespondido ? 'disabled' : ''}
+        >
+          ${isRespondido ? 'Já Respondido' : 'Marcar como Respondido'}
+        </button>
+      </div>
     `;
     container.appendChild(card);
   });
 }
 
-function abrirModal(id, nome) {
-  pedidoAtual = id;
-  document.getElementById('modalPedidoInfo').textContent = `Respondendo para: ${nome}`;
-  document.getElementById('textoResposta').value = ''; // Limpa o campo
-  document.getElementById('modalResposta').style.display = 'flex';
-}
-
-function fecharModal() {
-  document.getElementById('modalResposta').style.display = 'none';
-  document.getElementById('textoResposta').value = '';
-  pedidoAtual = null;
-}
-
-async function enviarResposta() {
-  const resposta = document.getElementById('textoResposta').value;
-  if (!resposta) return alert('Digite uma resposta.');
+// Função para atualizar o status no banco
+async function marcarComoRespondido(id) {
+  // Confirmação para evitar cliques errados
+  if (!confirm('Você já enviou o e-mail para este cliente? Deseja marcar como respondido?')) {
+    return;
+  }
 
   const { error } = await supabaseClient
     .from('contatos')
-    .update({ resposta: resposta, status: 'respondido' })
-    .eq('id', pedidoAtual);
+    .update({ status: 'respondido' })
+    .eq('id', id);
 
   if (error) {
-    alert('Erro ao salvar resposta: ' + error.message);
+    alert('Erro ao atualizar: ' + error.message + '\n(Dica: Verifique as permissões de RLS no Supabase).');
   } else {
-    alert('Resposta enviada com sucesso!');
-    fecharModal();
-    carregarPedidos();
+    carregarPedidos(); // Recarrega a lista para atualizar a tela
   }
 }
 
-// Logout padrão
 async function logout() {
   await supabaseClient.auth.signOut();
   window.location.href = 'login.html';
