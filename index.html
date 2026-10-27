@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <!-- Biblioteca do Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -28,8 +27,8 @@
         <a href="#servicos">Serviços</a>
         <a href="#como-funciona">Como funciona</a>
         <a href="#contato">Suporte</a>
+        <a href="dashboard.html">Painel Interno</a> <!-- Link para a equipe -->
         
-        <!-- Área do Usuário Logado -->
         <div class="user-menu">
           <span class="user-email" id="userEmail">Carregando...</span>
           <button onclick="logout()" class="btn btn--ghost btn--sm">Sair</button>
@@ -57,7 +56,6 @@
         </ul>
       </div>
       <div class="hero__visual fade-in">
-        <!-- FOTO REAL DO UNSPLASH -->
         <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop" alt="Gestão de negócios" class="hero-img">
       </div>
     </div>
@@ -86,7 +84,6 @@
     </div>
   </section>
 
-  <!-- ÁREA DE CONTATO REESTILIZADA -->
   <section class="section contact-section fade-in" id="contato">
     <div class="container">
       <div class="contact-grid">
@@ -119,7 +116,6 @@
             <label>Nome Completo <input type="text" id="contatoNome" required placeholder="Seu nome"></label>
             <label>E-mail <input type="email" id="contatoEmail" required placeholder="voce@empresa.com"></label>
             
-            <!-- NOVAS OPÇÕES DE NEGÓCIO -->
             <label>Tipo de Negócio
               <select id="contatoNegocio" required>
                 <option value="">Selecione a categoria...</option>

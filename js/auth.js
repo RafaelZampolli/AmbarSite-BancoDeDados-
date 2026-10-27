@@ -1,4 +1,3 @@
-// Inicializa o cliente Supabase (Usando as chaves do seu projeto)
 const SUPABASE_URL = 'https://payyhgojskahdgwnzdnh.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBheXloZ29qc2thaGRnd256ZG5oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMjc1MDMsImV4cCI6MjEwODcwMzUwM30.Dd4v4_aCFKOZaRTDxpWY1Le-tIINGbk_5ZnqmwyXeX8';
 
@@ -50,7 +49,14 @@ document.addEventListener('DOMContentLoaded', async () => {
           submitBtn.textContent = 'Entrar';
           submitBtn.disabled = false;
         } else {
-          window.location.href = 'index.html';
+          // Verifica se é funcionário ou admin para redirecionar
+          const { data: perfil } = await supabaseClient.from('perfis').select('role').eq('email', email).single();
+          
+          if (perfil && (perfil.role === 'funcionario' || perfil.role === 'admin')) {
+            window.location.href = 'dashboard.html'; // Vai para o painel interno
+          } else {
+            window.location.href = 'index.html';     // Vai para a área do cliente
+          }
         }
       } else {
         const { data, error } = await supabaseClient.auth.signUp({ email, password: pass });
@@ -73,17 +79,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const { data: { session } } = await supabaseClient.auth.getSession();
     
     if (!session) {
-      // Não está logado, redireciona para o login
       window.location.href = 'login.html';
     } else {
-      // Está logado, mostra o e-mail no menu
       const userDisplay = document.getElementById('userEmail');
       if (userDisplay) userDisplay.textContent = session.user.email;
     }
   }
 });
 
-// Função de Logout global
 async function logout() {
   await supabaseClient.auth.signOut();
   window.location.href = 'login.html';

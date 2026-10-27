@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Atendimento — Ambar Web</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="dashboard-body">
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="dashboard.html" class="logo">
+        <svg class="logo__svg" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#C97B1E"/><path d="M20 8 L29 30 H25.5 L23.5 25 H16.5 L14.5 30 H11 L20 8 Z M17.6 22 H22.4 L20 16 L17.6 22 Z" fill="#FFF"/></svg>
+        <span class="logo__text">Ambar <strong>Interno</strong></span>
+      </a>
+      <nav class="nav">
+        <span class="user-email" id="userEmail">Verificando acesso...</span>
+        <button onclick="logout()" class="btn btn--ghost btn--sm">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 40px; min-height: 80vh;">
+    
+    <!-- TELA DE ACESSO NEGADO -->
+    <div id="acessoNegado" style="display: none; text-align: center; padding: 50px;">
+      <h2 style="color: var(--amber); margin-bottom: 20px;">Acesso Restrito</h2>
+      <p>Você não tem permissão para acessar esta área. Fale com a liderança.</p>
+      <a href="index.html" class="btn btn--primary" style="margin-top: 20px;">Voltar ao site</a>
+    </div>
+
+    <!-- PAINEL DE ATENDIMENTO -->
+    <div id="painelAtendimento" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2>Central de Pedidos</h2>
+        <button onclick="carregarPedidos()" class="btn btn--primary btn--sm">Atualizar Lista</button>
+      </div>
+
+      <div id="listaPedidos" class="grid grid--3">
+        <p>Carregando pedidos...</p>
+      </div>
+    </div>
+
+    <!-- MODAL DE RESPOSTA -->
+    <div id="modalResposta" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+      <div style="background: #fff; padding: 30px; border-radius: 14px; max-width: 500px; width: 100%;">
+        <h3 style="margin-bottom: 15px;">Responder Pedido</h3>
+        <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--muted);" id="modalPedidoInfo"></p>
+        
+        <label style="display: block; margin-bottom: 15px;">
+          <span style="font-size: 0.85rem; font-weight: 600;">Sua Resposta:</span>
+          <textarea id="textoResposta" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-top: 5px;"></textarea>
+        </label>
+        
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button onclick="fecharModal()" class="btn btn--ghost btn--sm">Cancelar</button>
+          <button onclick="enviarResposta()" class="btn btn--primary btn--sm">Enviar Resposta</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
