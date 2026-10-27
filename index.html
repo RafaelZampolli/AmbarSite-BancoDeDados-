@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Biblioteca do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -114,12 +116,12 @@
         <div class="contact-form-wrapper">
           <form id="contactForm" class="form">
             <h3>Envie uma mensagem</h3>
-            <label>Nome Completo <input type="text" required placeholder="Seu nome"></label>
-            <label>E-mail <input type="email" required placeholder="voce@empresa.com"></label>
+            <label>Nome Completo <input type="text" id="contatoNome" required placeholder="Seu nome"></label>
+            <label>E-mail <input type="email" id="contatoEmail" required placeholder="voce@empresa.com"></label>
             
             <!-- NOVAS OPÇÕES DE NEGÓCIO -->
             <label>Tipo de Negócio
-              <select required>
+              <select id="contatoNegocio" required>
                 <option value="">Selecione a categoria...</option>
                 <option>Pizzaria / Restaurante</option>
                 <option>Mercado / Mercearia</option>
@@ -132,7 +134,7 @@
               </select>
             </label>
             
-            <label>Mensagem <textarea rows="4" required placeholder="Como podemos ajudar?"></textarea></label>
+            <label>Mensagem <textarea id="contatoMensagem" rows="4" required placeholder="Como podemos ajudar?"></textarea></label>
             <button type="submit" class="btn btn--primary btn--full">Enviar Mensagem</button>
           </form>
         </div>

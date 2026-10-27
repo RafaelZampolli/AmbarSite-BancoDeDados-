@@ -1,4 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Inicializa o cliente Supabase (Usando as chaves do seu projeto)
+const SUPABASE_URL = 'https://payyhgojskahdgwnzdnh.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBheXloZ29qc2thaGRnd256ZG5oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMxMjc1MDMsImV4cCI6MjEwODcwMzUwM30.Dd4v4_aCFKOZaRTDxpWY1Le-tIINGbk_5ZnqmwyXeX8';
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+document.addEventListener('DOMContentLoaded', async () => {
   const loginForm = document.getElementById('loginForm');
 
   // ========== LÓGICA DA PÁGINA DE LOGIN ==========
@@ -11,11 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let isLogin = true;
 
-    // Alternar entre Login e Cadastro
     toggleAuth.addEventListener('click', (e) => {
       e.preventDefault();
       isLogin = !isLogin;
-      
       if (isLogin) {
         formTitle.textContent = 'Entrar na conta';
         formSubtitle.textContent = 'Insira seus dados de acesso.';
@@ -31,30 +35,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Processar envio do formulário (Login ou Cadastro)
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const pass = document.getElementById('password').value;
 
-      // Pega os usuários salvos no navegador
-      const users = JSON.parse(localStorage.getItem('ambar_users') || '{}');
+      submitBtn.textContent = 'Aguarde...';
+      submitBtn.disabled = true;
 
       if (isLogin) {
-        if (users[email] && users[email] === pass) {
-          localStorage.setItem('ambar_logged', email);
-          window.location.href = 'index.html';
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+        if (error) {
+          alert('Erro ao entrar: ' + error.message);
+          submitBtn.textContent = 'Entrar';
+          submitBtn.disabled = false;
         } else {
-          alert('E-mail ou senha incorretos. Tente novamente.');
+          window.location.href = 'index.html';
         }
       } else {
-        if (users[email]) {
-          alert('Este e-mail já está cadastrado. Faça login.');
+        const { data, error } = await supabaseClient.auth.signUp({ email, password: pass });
+        if (error) {
+          alert('Erro ao cadastrar: ' + error.message);
+          submitBtn.textContent = 'Cadastrar';
+          submitBtn.disabled = false;
         } else {
-          users[email] = pass;
-          localStorage.setItem('ambar_users', JSON.stringify(users));
-          localStorage.setItem('ambar_logged', email);
-          alert('Conta criada com sucesso! Bem-vindo à Ambar Web.');
+          alert('Conta criada! Se o login não for automático, verifique seu e-mail.');
           window.location.href = 'index.html';
         }
       }
@@ -62,24 +67,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ========== PROTEÇÃO DA PÁGINA PRINCIPAL ==========
-  // Se o usuário estiver tentando acessar o index.html sem estar logado, redireciona para o login.
   const isIndexPage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
   
   if (isIndexPage) {
-    const loggedUser = localStorage.getItem('ambar_logged');
+    const { data: { session } } = await supabaseClient.auth.getSession();
     
-    if (!loggedUser) {
+    if (!session) {
+      // Não está logado, redireciona para o login
       window.location.href = 'login.html';
     } else {
-      // Mostra o e-mail do usuário logado no menu superior
+      // Está logado, mostra o e-mail no menu
       const userDisplay = document.getElementById('userEmail');
-      if (userDisplay) userDisplay.textContent = loggedUser;
+      if (userDisplay) userDisplay.textContent = session.user.email;
     }
   }
 });
 
 // Função de Logout global
-function logout() {
-  localStorage.removeItem('ambar_logged');
+async function logout() {
+  await supabaseClient.auth.signOut();
   window.location.href = 'login.html';
 }

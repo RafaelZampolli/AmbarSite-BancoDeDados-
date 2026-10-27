@@ -31,28 +31,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fadeElements.forEach(el => fadeObserver.observe(el));
 
-  // 4. CONSERTO DO FORMULÁRIO DE CONTATO (Feedback visual)
+  // 4. ENVIO DO FORMULÁRIO DE CONTATO VIA SUPABASE
   const form = document.getElementById('contactForm');
   if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault(); // Impede o recarregamento da página
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); 
       
       const btn = form.querySelector('button[type="submit"]');
       const originalText = btn.textContent;
       
-      // Feedback visual de envio
       btn.textContent = 'Enviando...';
       btn.disabled = true;
       btn.style.opacity = '0.7';
 
-      // Simula o tempo de envio para mostrar o sucesso
-      setTimeout(() => {
-        alert('Mensagem enviada com sucesso! O time da Ambar Web entrará em contato em breve.');
-        form.reset(); // Limpa os campos
-        btn.textContent = originalText;
-        btn.disabled = false;
-        btn.style.opacity = '1';
-      }, 1500);
+      // Pega os valores dos inputs
+      const nome = document.getElementById('contatoNome').value;
+      const email = document.getElementById('contatoEmail').value;
+      const negocio = document.getElementById('contatoNegocio').value;
+      const mensagem = document.getElementById('contatoMensagem').value;
+
+      // Envia para o banco de dados do Supabase
+      const { data, error } = await supabaseClient
+        .from('contatos') // Certifique-se de criar essa tabela no Supabase!
+        .insert([{ nome, email, negocio, mensagem }]);
+
+      if (error) {
+        console.error(error);
+        alert('Ocorreu um erro ao enviar. Verifique sua conexão ou chame no WhatsApp.');
+      } else {
+        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+        form.reset(); 
+      }
+      
+      btn.textContent = originalText;
+      btn.disabled = false;
+      btn.style.opacity = '1';
     });
   }
 });
