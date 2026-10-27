@@ -17,18 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. ANIMAÇÕES AO ROLAR A PÁGINA (Fade In)
+  // 3. ANIMAÇÕES AO ROLAR A PÁGINA
   const fadeElements = document.querySelectorAll('.fade-in');
-  
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        fadeObserver.unobserve(entry.target); // Para de observar após animar
+        fadeObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
-
   fadeElements.forEach(el => fadeObserver.observe(el));
 
   // 4. ENVIO DO FORMULÁRIO DE CONTATO VIA SUPABASE
@@ -44,20 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = true;
       btn.style.opacity = '0.7';
 
-      // Pega os valores dos inputs
       const nome = document.getElementById('contatoNome').value;
       const email = document.getElementById('contatoEmail').value;
       const negocio = document.getElementById('contatoNegocio').value;
       const mensagem = document.getElementById('contatoMensagem').value;
 
-      // Envia para o banco de dados do Supabase
+      // Envia com o status padrão 'pendente'
       const { data, error } = await supabaseClient
-        .from('contatos') // Certifique-se de criar essa tabela no Supabase!
-        .insert([{ nome, email, negocio, mensagem }]);
+        .from('contatos')
+        .insert([{ nome, email, negocio, mensagem, status: 'pendente' }]);
 
       if (error) {
         console.error(error);
-        alert('Ocorreu um erro ao enviar. Verifique sua conexão ou chame no WhatsApp.');
+        alert('Ocorreu um erro ao enviar. Verifique sua conexão.');
       } else {
         alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
         form.reset(); 
