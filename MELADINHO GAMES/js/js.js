@@ -85,26 +85,48 @@ document.getElementById('pagamento').addEventListener('change', (e) => {
 });
 
 // ============ GERAR PIX ============
+// ============ GERAR PIX (com modo de teste) ============
 async function gerarPix(valor, pedidoId) {
-  // ⚠️ Esta chamada precisa de um BACKEND (proxy) para não expor sua API key.
-  // No README explico como configurar a função serverless.
-  const res = await fetch('/api/pix', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ valor, pedidoId })
-  });
-  return res.json(); // { qrcode: "...", copiaCola: "..." }
+    // 🔧 MODO DE TESTE: se não houver backend configurado, simula um Pix
+    const MODO_TESTE = true; // ← mude para false quando tiver a chave real
+
+    if (MODO_TESTE) {
+        // Simula uma resposta de Pix falso para testar o layout
+        await new Promise(r => setTimeout(r, 800)); // finge que está processando
+        return {
+            copiaCola: "00020126580014br.gov.bcb.pix0136TESTE-MELADINHOS-GAMES" + pedidoId + "5204000053039865802BR5913MELADINHOS6009SAO PAULO62070503***6304ABCD",
+            qrcode: null // o QR será gerado no front com a lib qrcodejs
+        };
+    }
+
+    // Modo real (quando tiver a chave)
+    const res = await fetch('/api/pix', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ valor, pedidoId })
+    });
+
+    if (!res.ok) throw new Error("Falha ao gerar Pix");
+    return res.json();
 }
 
 // ============ IMPRESSÃO TÉRMICA ============
+// ============ IMPRESSÃO (com modo de teste) ============
 async function imprimirPedido(pedido) {
-  // Também via backend proxy para proteger o token
-  const res = await fetch('/api/imprimir', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(pedido)
-  });
-  return res.ok;
+    const MODO_TESTE = true; // ← mude para false quando tiver o token real
+
+    if (MODO_TESTE) {
+        console.log("🖨️ [MODO TESTE] Pedido que seria impresso:", pedido);
+        await new Promise(r => setTimeout(r, 500));
+        return true;
+    }
+
+    const res = await fetch('/api/imprimir', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido)
+    });
+    return res.ok;
 }
 
 // ============ CONFIRMAR PEDIDO ============
@@ -128,25 +150,18 @@ document.getElementById('btn-confirmar').addEventListener('click', async () => {
     criadoEm: new Date().toISOString()
   };
 
-  if (pagamento === 'pix') {
-    try {
-      const pix = await gerarPix(total, pedidoId);
-      document.getElementById('qrcode').innerHTML = '';
-      new QRCode(document.getElementById('qrcode'), {
-        text: pix.copiaCola, width: 200, height: 200
-      });
-      document.getElementById('pix-copia-cola').value = pix.copiaCola;
-      // Após confirmação do webhook, o backend dispara imprimirPedido()
-    } catch (e) {
-      alert("Erro ao gerar Pix. Verifique a configuração.");
+    if (pagamento === 'pix') {
+        try {
+            const pix = await gerarPix(total, pedidoId);
+            document.getElementById('qrcode').innerHTML = '';
+            new QRCode(document.getElementById('qrcode'), {
+                text: pix.copiaCola, width: 200, height: 200
+            });
+            document.getElementById('pix-copia-cola').value = pix.copiaCola;
+        } catch (e) {
+            alert("Erro ao gerar Pix. Verifique a configuração.");
+        }
     }
-  } else {
-    // Pagamento na entrega: imprime direto
-    await imprimirPedido(pedido);
-    alert(`Pedido ${pedidoId} confirmado! 🎮`);
-    carrinho = []; renderizarCarrinho();
-    document.getElementById('modal-checkout').classList.add('hidden');
-  }
 });
 
 // ============ INIT ============
