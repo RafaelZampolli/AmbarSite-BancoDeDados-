@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Ambar Web</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="auth-body">
+  <div class="auth-container fade-in visible">
+    <div class="auth-left">
+      <div class="logo">
+        <svg class="logo__svg" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#C97B1E"/><path d="M20 8 L29 30 H25.5 L23.5 25 H16.5 L14.5 30 H11 L20 8 Z M17.6 22 H22.4 L20 16 L17.6 22 Z" fill="#FFF"/></svg>
+        <span class="logo__text" style="font-size:1.5rem">Ambar <strong>Web</strong></span>
+      </div>
+      <h1>Bem-vindo de volta.</h1>
+      <p>Acesse sua conta para gerenciar seus sistemas e solicitar novos projetos.</p>
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" alt="Dashboard" class="auth-img">
+    </div>
+    <div class="auth-right">
+      <form id="loginForm" class="form">
+        <h2 id="formTitle">Entrar na conta</h2>
+        <label>E-mail <input type="email" id="email" required placeholder="voce@empresa.com"></label>
+        <label>Senha <input type="password" id="password" required placeholder="••••••••"></label>
+        <button type="submit" class="btn btn--primary btn--full">Entrar</button>
+        <p class="auth-toggle">Não tem conta? <a href="#" id="toggleAuth">Criar agora</a></p>
+      </form>
+    </div>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+</html>
