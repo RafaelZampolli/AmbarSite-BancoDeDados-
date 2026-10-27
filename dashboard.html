@@ -56,11 +56,62 @@
 
       <!-- ABA 3: PROJETOS E TAREFAS -->
       <div id="aba-projetos" class="tab-pane">
-        <h2 style="margin-bottom: 20px;">Meus Projetos</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2>Gestão de Projetos</h2>
+          <!-- Botão que só aparece para ADMIN -->
+          <button id="btnNovoProjeto" onclick="abrirModalProjeto()" class="btn btn--primary btn--sm" style="display: none;">+ Novo Projeto</button>
+        </div>
         <div id="listaProjetos" class="grid-cards"></div>
       </div>
 
     </main>
+  </div>
+
+  <!-- MODAL: CRIAR/EDITAR PROJETO -->
+  <div id="modalProjeto" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+    <div class="modal-box" style="background: #fff; padding: 30px; border-radius: 14px; max-width: 500px; width: 100%;">
+      <h3 id="tituloModalProjeto" style="margin-bottom: 15px;">Novo Projeto</h3>
+      <input type="hidden" id="projetoId">
+      
+      <label style="display: block; margin-bottom: 10px; font-size: 0.9rem;">Nome do Projeto
+        <input type="text" id="projetoNome" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-top: 5px;">
+      </label>
+      <label style="display: block; margin-bottom: 10px; font-size: 0.9rem;">Status
+        <select id="projetoStatus" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-top: 5px;">
+          <option value="Em andamento">Em andamento</option>
+          <option value="Concluído">Concluído</option>
+          <option value="Pausado">Pausado</option>
+        </select>
+      </label>
+      <label style="display: block; margin-bottom: 10px; font-size: 0.9rem;">E-mail do Responsável
+        <input type="email" id="projetoResp" placeholder="funcionario@ambarweb.com" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-top: 5px;">
+      </label>
+      <label style="display: block; margin-bottom: 20px; font-size: 0.9rem;">Link do Repositório (Git)
+        <input type="url" id="projetoRepo" placeholder="https://github.com/..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-top: 5px;">
+      </label>
+      
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <button onclick="fecharModalProjeto()" class="btn btn--ghost btn--sm">Cancelar</button>
+        <button onclick="salvarProjeto()" class="btn btn--primary btn--sm">Salvar Projeto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADICIONAR TAREFA -->
+  <div id="modalTarefa" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+    <div class="modal-box" style="background: #fff; padding: 30px; border-radius: 14px; max-width: 500px; width: 100%;">
+      <h3 style="margin-bottom: 15px;">Adicionar Tarefa</h3>
+      <input type="hidden" id="tarefaProjetoId">
+      
+      <label style="display: block; margin-bottom: 20px; font-size: 0.9rem;">Descrição da Tarefa
+        <input type="text" id="tarefaTexto" placeholder="Ex: Criar tela de login" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; margin-top: 5px;">
+      </label>
+      
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <button onclick="fecharModalTarefa()" class="btn btn--ghost btn--sm">Cancelar</button>
+        <button onclick="salvarTarefa()" class="btn btn--primary btn--sm">Adicionar</button>
+      </div>
+    </div>
   </div>
 
   <script src="js/dashboard.js"></script>
