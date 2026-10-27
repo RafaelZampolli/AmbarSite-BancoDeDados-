@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ambar Web — Sistemas de gestão e sites para pequenos negócios</title>
+  <meta name="description" content="A Ambar Web cria sistemas de gestão sob medida e landing pages para pizzarias, mercados e pequenos negócios. Organize seu negócio, agende uma reunião gratuita." />
+  <meta property="og:title" content="Ambar Web — Organizamos o seu negócio em um sistema que você entende" />
+  <meta property="og:description" content="Sistemas de gestão sob medida, hospedagem e landing pages para micro e pequenos negócios no Brasil." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD: dados estruturados para SEO local -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ambar Web",
+    "description": "Desenvolvimento de sistemas de gestão sob medida, landing pages e hospedagem para micro e pequenos negócios no Brasil.",
+    "url": "https://ambarweb.com.br",
+    "email": "rafazamps727@gmail.com",
+    "telephone": "+5511945842548",
+    "areaServed": { "@type": "Country", "name": "Brasil" },
+    "address": { "@type": "PostalAddress", "addressLocality": "São Paulo", "addressCountry": "BR" },
+    "priceRange": "R$$",
+    "sameAs": []
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#top" class="logo" aria-label="Ambar Web — início">
+        <svg class="logo__svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="#C97B1E"/>
+          <path d="M20 8 L29 30 H25.5 L23.5 25 H16.5 L14.5 30 H11 L20 8 Z M17.6 22 H22.4 L20 16 L17.6 22 Z" fill="#FFFFFF"/>
+        </svg>
+        <span class="logo__text">Ambar <strong>Web</strong></span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#servicos">Serviços</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#contato">Contato</a>
+        <a href="#agendar" class="btn btn--primary btn--sm">Agendar reunião</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="top">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="badge">Feito para micro e pequenos negócios</span>
+        <h1>Organizamos o seu negócio em um sistema que <em>você entende</em>.</h1>
+        <p class="hero__subtitle">
+          Sistemas de gestão sob medida, hospedagem e landing pages para pizzarias, mercados e comércios.
+          Feito por quem entende da sua operação — não um template genérico.
+        </p>
+        <div class="hero__actions">
+          <a href="#agendar" class="btn btn--primary btn--lg">Agendar diagnóstico gratuito</a>
+          <a href="#servicos" class="btn btn--ghost btn--lg">Ver serviços</a>
+        </div>
+        <ul class="hero__trust">
+          <li>✓ Hospedagem e manutenção inclusas</li>
+          <li>✓ Suporte próximo e humano</li>
+          <li>✓ Integração com leitor de código de barras</li>
+        </ul>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <div class="mockup">
+          <div class="mockup__bar"><span></span><span></span><span></span></div>
+          <div class="mockup__body">
+            <div class="mockup__row mockup__row--title"></div>
+            <div class="mockup__row"></div>
+            <div class="mockup__row mockup__row--short"></div>
+            <div class="mockup__grid">
+              <div class="mockup__card"></div>
+              <div class="mockup__card"></div>
+              <div class="mockup__card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DORES ========== -->
+  <section class="section problems">
+    <div class="container">
+      <h2 class="section__title">Você reconhece alguma dessas situações?</h2>
+      <div class="grid grid--3">
+        <div class="card card--problem">
+          <span class="card__icon">📋</span>
+          <h3>Controle no caderno e planilhas frágeis</h3>
+          <p>Pedidos, estoque e clientes espalhados em anotações que ninguém mais entende.</p>
+        </div>
+        <div class="card card--problem">
+          <span class="card__icon">⏱️</span>
+          <h3>Sem saber a produtividade da equipe</h3>
+          <p>Você não consegue medir quem entrega mais, quem trava e onde o processo falha.</p>
+        </div>
+        <div class="card card--problem">
+          <span class="card__icon">🌐</span>
+          <h3>Site que existe, mas não vende</h3>
+          <p>Uma página bonita que ninguém visita, não responde dúvidas e não gera contato.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVIÇOS ========== -->
+  <section class="section services" id="servicos">
+    <div class="container">
+      <h2 class="section__title">O que a Ambar Web faz</h2>
+      <p class="section__subtitle">Soluções sob medida para o tamanho e a realidade do seu negócio.</p>
+      <div class="grid grid--3">
+        <div class="card card--service">
+          <span class="card__icon">🍕</span>
+          <h3>Sistemas de gestão sob medida</h3>
+          <p>Pedidos, estoque, controle de entregas e produtividade da equipe — tudo em um sistema feito para a sua operação.</p>
+          <ul class="card__list">
+            <li>Gestão de pedidos e estoque</li>
+            <li>Painel de produtividade por funcionário</li>
+            <li>Integração com leitor de código de barras</li>
+          </ul>
+          <a href="#agendar" class="link-arrow">Quero um sistema →</a>
+        </div>
+        <div class="card card--service">
+          <span class="card__icon">🚀</span>
+          <h3>Landing pages que convertem</h3>
+          <p>Páginas focadas em gerar contato no WhatsApp e agendamentos, com SEO básico e carregamento rápido.</p>
+          <ul class="card__list">
+            <li>Design mobile-first</li>
+            <li>Botão de WhatsApp e formulário</li>
+            <li>SEO local e Google Meu Negócio</li>
+          </ul>
+          <a href="#agendar" class="link-arrow">Quero uma landing page →</a>
+        </div>
+        <div class="card card--service">
+          <span class="card__icon">🛠️</span>
+          <h3>Hospedagem e manutenção</h3>
+          <p>Seu site no ar, com backup, SSL, monitoramento e suporte — sem dor de cabeça técnica.</p>
+          <ul class="card__list">
+            <li>Hospedagem gerenciada</li>
+            <li>Backup automático e SSL</li>
+            <li>Suporte próximo e humano</li>
+          </ul>
+          <a href="#agendar" class="link-arrow">Quero hospedar meu site →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMO FUNCIONA ========== -->
+  <section class="section how" id="como-funciona">
+    <div class="container">
+      <h2 class="section__title">Como funciona</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step__num">1</span>
+          <h3>Diagnóstico gratuito</h3>
+          <p>Reunião de 20 a 30 minutos para entender o seu negócio e mapear o que precisa ser organizado.</p>
+        </div>
+        <div class="step">
+          <span class="step__num">2</span>
+          <h3>Proposta enxuta</h3>
+          <p>Escopo, prazo e investimento claros — sem surpresas e sem letras miúdas.</p>
+        </div>
+        <div class="step">
+          <span class="step__num">3</span>
+          <h3>Construção e aprovação</h3>
+          <p>Você acompanha o design e o desenvolvimento em cada etapa, antes de ir ao ar.</p>
+        </div>
+        <div class="step">
+          <span class="step__num">4</span>
+          <h3>Entrega, treinamento e suporte</h3>
+          <p>Treinamos a sua equipe e continuamos por perto com manutenção e melhorias.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DEPOIMENTOS ========== -->
+  <section class="section testimonials" id="depoimentos">
+    <div class="container">
+      <h2 class="section__title">O que nossos primeiros clientes dizem</h2>
+      <div class="grid grid--3">
+        <blockquote class="card card--testimonial">
+          <p>"Antes a gente anotava os pedidos no caderno. Hoje o sistema mostra tudo em tempo real — e a equipe toda sabe o que fazer."</p>
+          <footer>— Dono de pizzaria, cliente piloto</footer>
+        </blockquote>
+        <blockquote class="card card--testimonial">
+          <p>"Finalmente consigo ver quanto cada funcionário produziu no dia. Mudou a forma como eu gerencio o mercado."</p>
+          <footer>— Proprietário de mercado, cliente piloto</footer>
+        </blockquote>
+        <blockquote class="card card--testimonial">
+          <p>"A landing page começou a gerar contatos no WhatsApp na primeira semana. Atendimento próximo e rápido."</p>
+          <footer>— Prestador de serviços, cliente piloto</footer>
+        </blockquote>
+      </div>
+      <p class="testimonials__note">* Depoimentos ilustrativos — substitua pelos reais assim que tiver seus primeiros clientes.</p>
+    </div>
+  </section>
+
+  <!-- ========== CTA + AGENDAMENTO ========== -->
+  <section class="section cta" id="agendar">
+    <div class="container cta__inner">
+      <div class="cta__content">
+        <h2>Pronto para organizar o seu negócio?</h2>
+        <p>Agende um diagnóstico gratuito de 20 a 30 minutos. Sem compromisso, sem discurso de venda — só uma conversa sobre o que a sua operação precisa.</p>
+        <ul class="cta__list">
+          <li>✓ Reunião por Google Meet ou WhatsApp</li>
+          <li>✓ Diagnóstico gratuito e sem compromisso</li>
+          <li>✓ Proposta em até 3 dias úteis</li>
+        </ul>
+      </div>
+      <div class="cta__form-wrap">
+        <form class="form" id="contactForm" action="https://formsubmit.co/rafazamps727@gmail.com" method="POST">
+          <h3>Agende sua reunião</h3>
+          <input type="hidden" name="_subject" value="Novo contato pelo site Ambar Web" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://ambarweb.com.br/obrigado.html" />
+          <label>
+            Nome
+            <input type="text" name="nome" required placeholder="Seu nome" />
+          </label>
+          <label>
+            WhatsApp
+            <input type="tel" name="whatsapp" required placeholder="(00) 00000-0000" />
+          </label>
+          <label>
+            E-mail
+            <input type="email" name="email" required placeholder="voce@empresa.com" />
+          </label>
+          <label>
+            Tipo de negócio
+            <select name="negocio" required>
+              <option value="">Selecione</option>
+              <option>Pizzaria / Restaurante</option>
+              <option>Mercado / Mercearia</option>
+              <option>Prestador de serviços</option>
+              <option>Outro</option>
+            </select>
+          </label>
+          <label>
+            O que você precisa?
+            <textarea name="mensagem" rows="3" placeholder="Ex.: sistema de controle de pedidos, landing page, etc."></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary btn--full">Solicitar diagnóstico gratuito</button>
+          <p class="form__note">Ao enviar, você concorda em ser contatado pela Ambar Web. Seus dados não serão compartilhados.</p>
+        </form>
+        <p class="cta__alt">Prefere escolher um horário direto? <a href="COLE_SEU_LINK_DO_GOOGLE_AGENDA_AQUI" target="_blank" rel="noopener">Agende pelo Google Agenda</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTATO ========== -->
+  <section class="section contact" id="contato">
+    <div class="container">
+      <h2 class="section__title">Fale com a gente</h2>
+      <div class="grid grid--3">
+        <a class="card card--contact" href="https://wa.me/5511945842548" target="_blank" rel="noopener">
+          <span class="card__icon">💬</span>
+          <h3>WhatsApp</h3>
+          <p>(11) 94584-2548</p>
+        </a>
+        <a class="card card--contact" href="mailto:rafazamps727@gmail.com">
+          <span class="card__icon">✉️</span>
+          <h3>E-mail</h3>
+          <p>rafazamps727@gmail.com</p>
+        </a>
+        <div class="card card--contact">
+          <span class="card__icon">📍</span>
+          <h3>Atendimento</h3>
+          <p>Brasil — atendimento remoto e presencial na região de São Paulo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <svg class="logo__svg" width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="#C97B1E"/>
+          <path d="M20 8 L29 30 H25.5 L23.5 25 H16.5 L14.5 30 H11 L20 8 Z M17.6 22 H22.4 L20 16 L17.6 22 Z" fill="#FFFFFF"/>
+        </svg>
+        <span class="logo__text">Ambar <strong>Web</strong></span>
+        <p>Sistemas de gestão e sites para pequenos negócios.</p>
+      </div>
+      <div class="footer__links">
+        <a href="#servicos">Serviços</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#agendar">Agendar reunião</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span id="year"></span> Ambar Web. Todos os direitos reservados.</p>
+      <p>Feito com cuidado no Brasil 🇧🇷</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5511945842548" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

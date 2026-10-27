@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recebemos seu contato — Ambar Web</title>
+  <meta name="description" content="Obrigado! Sua solicitação foi recebida pela Ambar Web. Entraremos em contato em até 24 horas úteis." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="Ambar Web — início">
+        <svg class="logo__svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="#C97B1E"/>
+          <path d="M20 8 L29 30 H25.5 L23.5 25 H16.5 L14.5 30 H11 L20 8 Z M17.6 22 H22.4 L20 16 L17.6 22 Z" fill="#FFFFFF"/>
+        </svg>
+        <span class="logo__text">Ambar <strong>Web</strong></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html#servicos">Serviços</a>
+        <a href="index.html#como-funciona">Como funciona</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="thanks">
+    <div class="container thanks__inner">
+      <div class="thanks__icon">✅</div>
+      <h1>Recebemos o seu contato!</h1>
+      <p class="thanks__subtitle">
+        Obrigado por confiar na Ambar Web. Sua solicitação foi registrada com sucesso
+        e nossa equipe entrará em contato em até <strong>24 horas úteis</strong>.
+      </p>
+
+      <div class="thanks__next">
+        <h2>Enquanto isso, você pode:</h2>
+        <div class="grid grid--3">
+          <a class="card card--contact" href="https://wa.me/5511945842548" target="_blank" rel="noopener">
+            <span class="card__icon">💬</span>
+            <h3>Falar no WhatsApp</h3>
+            <p>Resposta mais rápida em horário comercial.</p>
+          </a>
+          <a class="card card--contact" href="index.html#servicos">
+            <span class="card__icon">🔍</span>
+            <h3>Conhecer os serviços</h3>
+            <p>Veja o que a Ambar Web pode fazer pelo seu negócio.</p>
+          </a>
+          <a class="card card--contact" href="mailto:rafazamps727@gmail.com">
+            <span class="card__icon">✉️</span>
+            <h3>Enviar um e-mail</h3>
+            <p>rafazamps727@gmail.com</p>
+          </a>
+        </div>
+      </div>
+
+      <a href="index.html" class="btn btn--primary btn--lg thanks__back">Voltar para o site</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom" style="border-top:none; padding-top:0;">
+      <p>© <span id="year"></span> Ambar Web. Todos os direitos reservados.</p>
+      <p>Feito com cuidado no Brasil 🇧🇷</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
